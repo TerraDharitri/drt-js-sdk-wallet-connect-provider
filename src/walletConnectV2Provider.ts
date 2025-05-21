@@ -57,6 +57,10 @@ export interface IProviderAccount {
   signature?: string;
 }
 
+export type WalletConnectV2ProviderOptionsType =
+  | SignClientTypes.Options
+  | undefined;
+
 export class WalletConnectV2Provider {
   walletConnectV2Relay: string;
   walletConnectV2ProjectId: string;
@@ -66,7 +70,7 @@ export class WalletConnectV2Provider {
   session: SessionTypes.Struct | undefined;
   pairings: PairingTypes.Struct[] | undefined;
   processingTopic: string = "";
-  options: SignClientTypes.Options | undefined = {};
+  options: WalletConnectV2ProviderOptionsType = {};
 
   private onClientConnect: IClientConnect;
   private account: IProviderAccount = { address: "" };
@@ -374,7 +378,7 @@ export class WalletConnectV2Provider {
     const message = new Message({
       data: Buffer.from(messageToSign.data),
       address:
-        messageToSign.address ?? Address.fromBech32(this.account.address),
+        messageToSign.address ?? Address.newFromBech32(this.account.address),
       signer: "wallet-connect-v2",
       version: messageToSign.version,
     });
@@ -457,7 +461,7 @@ export class WalletConnectV2Provider {
 
     const plainTransaction = transaction.toPlainObject();
 
-    if (this.chainId !== transaction.getChainID().valueOf()) {
+    if (this.chainId !== transaction.chainID.valueOf()) {
       Logger.error(
         WalletConnectV2ProviderErrorMessagesEnum.requestDifferentChain
       );
@@ -507,7 +511,7 @@ export class WalletConnectV2Provider {
     }
 
     const plainTransactions = transactions.map((transaction) => {
-      if (this.chainId !== transaction.getChainID().valueOf()) {
+      if (this.chainId !== transaction.chainID.valueOf()) {
         Logger.error(
           WalletConnectV2ProviderErrorMessagesEnum.requestDifferentChain
         );
