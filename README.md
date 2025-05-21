@@ -2,11 +2,11 @@
 
 Signing provider for dApps: WalletConnect.
 
-Documentation is available on [docs.dharitri.org](https://docs.dharitri.org/sdk-and-tools/sdk-js/sdk-js-signing-providers/#the-wallet-connect-provider), while an integration example can be found [here](https://github.com/TerraDharitri/drt-js-sdk-examples/tree/main/signing-providers).
+Documentation is available on [docs.dharitri.org](https://docs.dharitri.org/sdk-and-tools/sdk-js/sdk-js-signing-providers/#the-wallet-connect-provider), while an integration example can be found [here](https://github.com/TerraDharitri /drt-js-sdk-examples/tree/main/signing-providers).
 
-Note that **we recommend using [sdk-dapp](https://github.com/TerraDharitri/drt-sdk-dapp)** instead of integrating the signing provider on your own.
+Note that **we recommend using [sdk-dapp](https://github.com/TerraDharitri /drt-sdk-dapp)** instead of integrating the signing provider on your own.
 
-You can check out the integration with `sdk-dapp` in the [Template dApp](https://github.com/TerraDharitri/drt-template-dapp) repository with a live example [here](https://devnet.template-dapp.dharitri.org).
+You can check out the integration with `sdk-dapp` in the [Template dApp](https://github.com/TerraDharitri /drt-template-dapp) repository with a live example [here](https://devnet.template-dapp.dharitri.org).
 
 ## Distribution
 
@@ -178,13 +178,13 @@ console.log(message.toJSON());
 
 ## Namespaces
 
-DharitrI Namespace: `drt`
+Dharitri Namespace: `drt`
 
-Reference: `1` for `Mainnet`, `T` for `Testnet`, `D` for `Devnet` ( same as the DharitrI chainID )
+Reference: `1` for `Mainnet`, `T` for `Testnet`, `D` for `Devnet` ( same as the Dharitri chainID )
 
-The DharitrI namespaces respect the [CAIP Standards](https://namespaces.chainagnostic.org).
+The Dharitri namespaces respect the [CAIP Standards](https://namespaces.chainagnostic.org).
 
-### Example of a DharitrI WalletConnect Proposal Namespace
+### Example of a Dharitri WalletConnect Proposal Namespace
 
 ```json
 {
@@ -204,7 +204,7 @@ The DharitrI namespaces respect the [CAIP Standards](https://namespaces.chainagn
 
 If the wallet (or the user) does NOT approve the session, then it is rejected. Otherwise, the wallet responds with a slightly different namespace schema: Session Namespace.
 
-### Example of a DharitrI WalletConnect Session Namespace
+### Example of a Dharitri WalletConnect Session Namespace
 
 ```json
 {
@@ -229,7 +229,7 @@ If the wallet (or the user) does NOT approve the session, then it is rejected. O
 
 The default methods are `drt_signTransaction`, `drt_signTransactions` and `drt_signMessage`.
 
-A detailed documentation for the default methods is available [here](https://specs.walletconnect.com/2.0/blockchain-rpc-rpc).
+A detailed documentation for the default methods is available [here](https://specs.walletconnect.com/2.0/blockchain-rpc/TerraDharitri -rpc).
 
 Any additional methods must be passed in the `.connect` step
 
@@ -245,4 +245,4 @@ const { uri, approval } = await provider.connect({
 
 ### WalletConnect JSON-RPC Methods
 
-The available DharitrI JSON-RPC Methods and the structure can be checked on WalletConnect's [Specs](https://specs.walletconnect.com/2.0/blockchain-rpc/TerraDharitri -rpc) and on [DharitrI Docs](https://docs.dharitri.org/integrators/walletconnect-json-rpc-methods).
+The available Dharitri JSON-RPC Methods and the structure can be checked on WalletConnect's [Specs](https://specs.walletconnect.com/2.0/blockchain-rpc/TerraDharitri -rpc) and on [Dharitri Docs](https://docs.dharitri.org/integrators/walletconnect-json-rpc-methods).
