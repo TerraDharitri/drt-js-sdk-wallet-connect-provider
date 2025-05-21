@@ -1,8 +1,9 @@
-import { Operation } from "./operation";
+import { Operation, OptionalOperation } from "./operation";
 
-// WalletConnect chain ID for Dharitri
-export const WALLETCONNECT_DHARITRI_CHAIN_ID = 508;
-// WalletConnect Namespace for Dharitri
+// WalletConnect Namespace for DharitrI
 export const WALLETCONNECT_DHARITRI_NAMESPACE = "drt";
-// WalletConnect default methods for Dharitri
+// WalletConnect default methods for DHARITRI
 export const WALLETCONNECT_DHARITRI_METHODS = Object.values(Operation);
+// WalletConnect optional methods for DHARITRI
+export const WALLETCONNECT_DHARITRI_OPTIONAL_METHODS =
+  Object.values(OptionalOperation);

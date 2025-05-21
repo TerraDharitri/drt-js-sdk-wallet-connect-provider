@@ -2,9 +2,9 @@
 
 Signing provider for dApps: Wallet Connect.
 
-Documentation is available on [docs.dharitri.org](https://docs.dharitri.org/sdk-and-tools/drtjs/drtjs-signing-providers/), while an integration example can be found [here](https://github.com/TerraDharitri/drt-js-sdk-examples/tree/main/signing-providers).
+Documentation is available on [docs.dharitri.org](https://docs.dharitri.org/sdk-and-tools/drtjs/drtjs-signing-providers/), while an integration example can be found [here](https://github.com/terradharitri/drt-js-sdk-examples/tree/main/signing-providers).
 
-Note that **we recommend using [dapp-core](https://github.com/TerraDharitri/drt-sdk-dapp)** instead of integrating the signing provider on your own.
+Note that **we recommend using [dapp-core](https://github.com/terradharitri/drt-sdk-dapp)** instead of integrating the signing provider on your own.
 
 ## Distribution
 
@@ -176,11 +176,11 @@ console.log(message.toJSON());
 
 ## Namespaces
 
-Dharitri Namespace: `drt`
+DharitrI Namespace: `drt`
 
-Reference: `1` for `Mainnet`, `T` for `Testnet`, `D` for `Devnet` ( same as the Dharitri chainID )
+Reference: `1` for `Mainnet`, `T` for `Testnet`, `D` for `Devnet` ( same as the DharitrI chainID )
 
-### Example of a Dharitri WalletConnect Proposal Namespace
+### Example of a DharitrI WalletConnect Proposal Namespace
 
 ```json
 {
@@ -190,8 +190,7 @@ Reference: `1` for `Mainnet`, `T` for `Testnet`, `D` for `Devnet` ( same as the 
       "methods": [
         "drt_signTransaction",
         "drt_signTransactions",
-        "drt_signMessage",
-        "drt_signLoginToken"
+        "drt_signMessage"
       ],
       "events": []
     }
@@ -201,7 +200,7 @@ Reference: `1` for `Mainnet`, `T` for `Testnet`, `D` for `Devnet` ( same as the 
 
 If the wallet (or the user) does NOT approve the session, then it is rejected. Otherwise, the wallet responds with a slightly different namespace schema: Session Namespace.
 
-### Example of a Dharitri WalletConnect Session Namespace
+### Example of a DharitrI WalletConnect Session Namespace
 
 ```json
 {
@@ -211,8 +210,7 @@ If the wallet (or the user) does NOT approve the session, then it is rejected. O
       "methods": [
         "drt_signTransaction",
         "drt_signTransactions",
-        "drt_signMessage",
-        "drt_signLoginToken"
+        "drt_signMessage"
       ],
       "events": [],
       "accounts": [
@@ -222,3 +220,19 @@ If the wallet (or the user) does NOT approve the session, then it is rejected. O
   }
 }
 ```
+
+### Optional Methods
+
+The default methods are `drt_signTransaction`, `drt_signTransactions` and `drt_signMessage`.
+
+Any additional methods must be passed in the `.connect` step
+
+```js
+const { uri, approval } = await provider.connect({
+  methods: ["drt_signNativeAuthToken", "drt_cancelAction"],
+});
+```
+
+- `drt_signLoginToken` - Included by default for now for compatibility reasons. Subject to change as it will be replaced by the `drt_signNativeAuthToken` method soon.
+- `drt_signNativeAuthToken` - Used while logging in with a nativeAuth token, this will offer a special UI based on that format.
+- `drt_cancelAction` - The dApp can trigger a `sendCustomRequest` event that will cancel the current signing flow on the device.
