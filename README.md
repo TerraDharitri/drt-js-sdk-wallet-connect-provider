@@ -1,10 +1,12 @@
 # drt-js-sdk-wallet-connect-provider
 
-Signing provider for dApps: Wallet Connect.
+Signing provider for dApps: WalletConnect.
 
-Documentation is available on [docs.dharitri.org](https://docs.dharitri.org/sdk-and-tools/drtjs/drtjs-signing-providers/), while an integration example can be found [here](https://github.com/terradharitri/drt-js-sdk-examples/tree/main/signing-providers).
+Documentation is available on [docs.dharitri.org](https://docs.dharitri.org/sdk-and-tools/sdk-js/sdk-js-signing-providers/#the-wallet-connect-provider), while an integration example can be found [here](https://github.com/TerraDharitri/drt-js-sdk-examples/tree/main/signing-providers).
 
-Note that **we recommend using [dapp-core](https://github.com/terradharitri/drt-sdk-dapp)** instead of integrating the signing provider on your own.
+Note that **we recommend using [sdk-dapp](https://github.com/TerraDharitri/drt-sdk-dapp)** instead of integrating the signing provider on your own.
+
+You can check out the integration with `sdk-dapp` in the [Template dApp](https://github.com/TerraDharitri/drt-template-dapp) repository with a live example [here](https://devnet.template-dapp.dharitri.org).
 
 ## Distribution
 
@@ -31,13 +33,13 @@ npm run compile
 
 The WalletConnect 2.0 Signing Provider can use the [WalletConnect Cloud Relay](https://docs.walletconnect.com/2.0/cloud/relay) default address: `wss://relay.walletconnect.com`, in order to be able to access the Cloud Relay you will need to generate a Project ID
 
-The Project ID can be generated for free here: https://cloud.walletconnect.com/sign-in
+The Project ID can be generated for free here: [https://cloud.walletconnect.com/sign-in](https://cloud.walletconnect.com/sign-in)
 
 The WalletConnect Project ID grants you access to the WalletConnect Cloud Relay that securely manages communication between the device and the dApp.
 
 ## Usage Examples
 
-For this example we will use the WalletConnect 2.0 provider since 1.0 is no longer mantained and it will be [deprecated soon](https://medium.com/walletconnect/weve-reset-the-clock-on-the-walletconnect-v1-0-shutdown-now-scheduled-for-june-28-2023-ead2d953b595)
+For this example we will use the WalletConnect 2.0 provider since 1.0 is [deprecated](https://medium.com/walletconnect/weve-reset-the-clock-on-the-walletconnect-v1-0-shutdown-now-scheduled-for-june-28-2023-ead2d953b595)
 
 First, let's see a (simple) way to build a QR dialog using [`qrcode`](https://www.npmjs.com/package/qrcode) (and bootstrap):
 
@@ -180,6 +182,8 @@ DharitrI Namespace: `drt`
 
 Reference: `1` for `Mainnet`, `T` for `Testnet`, `D` for `Devnet` ( same as the DharitrI chainID )
 
+The DharitrI namespaces respect the [CAIP Standards](https://namespaces.chainagnostic.org).
+
 ### Example of a DharitrI WalletConnect Proposal Namespace
 
 ```json
@@ -225,6 +229,8 @@ If the wallet (or the user) does NOT approve the session, then it is rejected. O
 
 The default methods are `drt_signTransaction`, `drt_signTransactions` and `drt_signMessage`.
 
+A detailed documentation for the default methods is available [here](https://specs.walletconnect.com/2.0/blockchain-rpc-rpc).
+
 Any additional methods must be passed in the `.connect` step
 
 ```js
@@ -236,3 +242,7 @@ const { uri, approval } = await provider.connect({
 - `drt_signLoginToken` - Included by default for now for compatibility reasons. Subject to change as it will be replaced by the `drt_signNativeAuthToken` method soon.
 - `drt_signNativeAuthToken` - Used while logging in with a nativeAuth token, this will offer a special UI based on that format.
 - `drt_cancelAction` - The dApp can trigger a `sendCustomRequest` event that will cancel the current signing flow on the device.
+
+### WalletConnect JSON-RPC Methods
+
+The available DharitrI JSON-RPC Methods and the structure can be checked on WalletConnect's [Specs](https://specs.walletconnect.com/2.0/blockchain-rpc/TerraDharitri -rpc) and on [DharitrI Docs](https://docs.dharitri.org/integrators/walletconnect-json-rpc-methods).

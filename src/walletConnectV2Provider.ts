@@ -8,7 +8,10 @@ import {
   SignClientTypes,
 } from "@walletconnect/types";
 import { getSdkError, isValidArray } from "@walletconnect/utils";
-import { WALLETCONNECT_DHARITRI_NAMESPACE } from "./constants";
+import {
+  WALLETCONNECT_DHARITRI_NAMESPACE,
+  WALLETCONNECT_SIGN_LOGIN_DELAY,
+} from "./constants";
 import { WalletConnectV2ProviderErrorMessagesEnum } from "./errors";
 import { Logger } from "./logger";
 import { Operation, OptionalOperation } from "./operation";
@@ -22,6 +25,7 @@ import {
   getMetadata,
   ConnectParamsTypes,
   TransactionResponse,
+  sleep,
 } from "./utils";
 
 interface SessionEventTypes {
@@ -161,6 +165,16 @@ export class WalletConnectV2Provider {
 
       return response;
     } catch (error) {
+      if (options?.topic) {
+        try {
+          this.walletConnector.core?.expirer?.set(options.topic, 0);
+        } catch (error) {
+          Logger.error(
+            WalletConnectV2ProviderErrorMessagesEnum.unableToHandleCleanup
+          );
+        }
+      }
+
       this.reset();
       Logger.error(
         options?.topic
@@ -198,6 +212,7 @@ export class WalletConnectV2Provider {
         const session = await options.approval();
 
         if (options.token) {
+          await sleep(WALLETCONNECT_SIGN_LOGIN_DELAY); // Delay the sign login token action to allow the UI to update properly
           const address = getAddressFromSession(session);
 
           const selectedNamespace =
